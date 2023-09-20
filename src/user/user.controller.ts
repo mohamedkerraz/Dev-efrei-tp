@@ -5,28 +5,33 @@ export class UserController {
     constructor(private userService: UserService) {}
 
 
-    addpseudo(pseudo: string): User {
-        if(pseudo.match(`/[^a-zA-Z0-9\s]/g`) !== null){
-            throw new Error('Le pseudo ne peut pas contenir de caractères spéciaux');
+
+
+    
+
+    add(pseudo: string): User {
+        if(pseudo.match(/[^a-zA-Z0-9\s]/g) !== null){
+            throw new Error('Le pseudo ne peut pas contenir de caractères spéciaux.');
         }else if(pseudo === ''){
-            throw new Error('Le pseudo ne peut pas être vide');
+            throw new Error('Le pseudo ne peut pas être vide.');
         }else{
-            return this.userService.addpseudo(pseudo);
+            return this.userService.add(pseudo);
         }
     }
 
-    addemail(email: string): User {
-        if (email.match(`/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/`)) {
-          throw new Error('L\'adresse email n\'est pas valide.');
-        }
-      
-        return this.userService.addemail(email);
-      }
 
     getById(id: number): User | null {
         // is the id a decimal ?
         // is the id a negative number ?
         // other checks...
-        return this.userService.getById(id);
+ 
+        if(id % 1 !== 0){
+            throw new Error('L\'ID doit être un nombre entier.'); 
+        }else if(id < 0){
+            throw new Error('L\'ID ne peut pas etre negatif.'); 
+        }else{
+            return this.userService.getById(id);
+        }
+        
     }
 }

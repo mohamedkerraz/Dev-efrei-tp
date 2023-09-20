@@ -11,6 +11,7 @@ export class UserRouter {
     private configureRoutes(): void {
         this.router.get('/:id', (req, res, next) => {
             try {
+            
                 const result = this.userController.getById(
                     parseInt(req.params.id),
                 );
@@ -22,8 +23,10 @@ export class UserRouter {
 
         this.router.post('/add-user', (req, res, next) => {
             try {
-                const result = this.userController.addpseudo(req.body.pseudo);
+                const result = this.userController.add(req.body.pseudo);
+
                 res.status(200).json(result);
+             
             } catch (error: unknown) {
                 next(error);
             }
